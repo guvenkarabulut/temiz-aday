@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Pozisyonlar · TemizAday{% endblock %}
+{% block content %}
+<div><span class="tag">POZİSYONLAR</span><h1>Açık pozisyonlar</h1></div>
+
+<div class="card scroll">
+  {% if not items %}<span>Henüz pozisyon yok. Aşağıdan ilkini ekleyin.</span>{% else %}
+  <table>
+    <thead><tr><th>Pozisyon</th><th>Yüklenen CV</th><th>CPU'da elenen</th><th>Kurtarılan</th><th>Eşik</th></tr></thead>
+    <tbody>
+    {% for it in items %}
+      <tr>
+        <td><a href="/positions/{{ it.p.id }}" style="font-weight:700;color:var(--ink)">{{ it.p.title }}</a>{% if it.p.dept %}<br><span class="small">{{ it.p.dept }}</span>{% endif %}</td>
+        <td class="num">{{ it.imp.total | tr }}</td>
+        <td class="num">{% if it.imp.total %}%{{ (it.imp.rejected / it.imp.total * 100) | round | int }}{% else %}–{% endif %}</td>
+        <td class="num" style="color:var(--moss);font-weight:700">{{ it.imp.net_wh | tr(1) }} Wh</td>
+        <td class="num">{{ '%.2f' | format(it.p.thr) | replace('.', ',') }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+
+<form class="card" method="post" action="/positions"><input type="hidden" name="csrf" value="{{ csrf }}">
+  <h2>Pozisyon ekle</h2>
+  <div class="row" style="align-items:flex-start">
+    <div class="field" style="flex:2 1 280px"><label for="t">Başlık</label><input id="t" name="title" required placeholder="Kıdemli Backend Mühendisi"></div>
+    <div class="field" style="flex:1 1 200px"><label for="d">Bölüm · şehir</label><input id="d" name="dept" placeholder="Mühendislik · İstanbul"></div>
+  </div>
+  <div class="field"><label for="jd">İş tanımı (JD)</label><textarea id="jd" name="jd_text" rows="5" required placeholder="Go ve PostgreSQL ile yüksek hacimli servisler geliştirecek 6+ yıl deneyimli mühendis…"></textarea></div>
+  <div class="field"><label for="kw">Zorunlu anahtar kelimeler (virgülle)</label><input id="kw" name="keywords" placeholder="go, postgresql, kubernetes">
+    <span class="small">Eksik olan aday elenmez, "inceleme" kuyruğuna düşer.</span></div>
+  <div><button class="btn">Pozisyonu oluştur</button></div>
+</form>
+{% endblock %}

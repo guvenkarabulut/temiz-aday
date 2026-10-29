@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Filtre Ayarları · TemizAday{% endblock %}
+{% block content %}
+<div><span class="tag">FİLTRE AYARLARI</span><h1>Neyi süzelim?</h1></div>
+{% if not p %}
+<div class="card"><span>Önce bir pozisyon ekleyin.</span><div><a class="btn" href="/positions">Pozisyonlara git</a></div></div>
+{% else %}
+<form method="get" class="row" style="gap:8px"><label for="pos">Pozisyon</label>
+  <select id="pos" name="position" onchange="this.form.submit()" style="width:auto">{% for x in positions %}<option value="{{ x.id }}" {{ 'selected' if x.id == p.id }}>{{ x.title }}</option>{% endfor %}</select>
+  <noscript><button class="btn sm">Seç</button></noscript></form>
+
+<div class="row" style="align-items:flex-start">
+  <form class="card" style="flex:2 1 420px" method="get" id="prev">
+    <input type="hidden" name="position" value="{{ p.id }}">
+    <b style="font-size:18px">Benzerlik eşiği</b>
+    <div class="row" style="justify-content:space-between"><label for="thr">Eşik</label><span class="num" style="font-size:28px;color:var(--moss)">{{ '%.2f' | format(t) | replace('.', ',') }}</span></div>
+    <input id="thr" name="thr" type="range" min="0.05" max="0.6" step="0.01" value="{{ t }}" style="padding:0;border:0;accent-color:var(--moss)" onchange="this.form.submit()">
+    <div class="row" style="justify-content:space-between"><span class="small num">0,05 · gevşek</span><span class="small num">0,60 · sıkı</span></div>
+    <div class="row" style="justify-content:space-between"><label for="mg">Sınıra yakın bant (±)</label><span class="num">{{ '%.2f' | format(m) | replace('.', ',') }}</span></div>
+    <input id="mg" name="margin" type="range" min="0" max="0.2" step="0.01" value="{{ m }}" style="padding:0;border:0;accent-color:var(--moss)" onchange="this.form.submit()">
+    <span class="small">Eşiğin ±bant kadar yakınındaki CV'ler elenmez, "inceleme" kuyruğuna alınır. Kaydırınca önizleme güncellenir; kaydedilmez.</span>
+    <noscript><button class="btn sm">Önizle</button></noscript>
+  </form>
+
+  <div class="card dark" style="flex:1 1 300px">
+    <span class="small">ETKİ ÖNİZLEMESİ · {{ n | tr }} CV</span>
+    <div><span class="small">CPU'da elenir</span><br><span class="metric" style="color:var(--ember)">{{ prev.rejected | tr }}</span></div>
+    <div><span class="small">LLM'e gider</span><br><span class="metric">{{ prev.llm | tr }}</span></div>
+    <div><span class="small">İnceleme</span><br><span class="metric" style="color:var(--mist)">{{ prev.review | tr }}</span></div>
+    <span class="small">Enerji: {{ (prev.rejected * cfg.wh_per_call) | tr(1) }} Wh (brüt)</span>
+  </div>
+</div>
+
+<form class="card" method="post" action="/filter"><input type="hidden" name="csrf" value="{{ csrf }}">
+  <input type="hidden" name="position" value="{{ p.id }}"><input type="hidden" name="thr" value="{{ t }}"><input type="hidden" name="margin" value="{{ m }}">
+  <b style="font-size:18px">Zorunlu anahtar kelimeler</b>
+  <div class="field"><label for="kw">Virgülle ayırın</label><input id="kw" name="keywords" value="{{ p.keywords }}" placeholder="go, postgresql, kubernetes"></div>
+  <span class="small">Yukarıdaki eşik ve bant değerleriyle birlikte uygulanır. İnsan kararı verilmiş ve LLM'e gitmiş CV'ler korunur.</span>
+  <div><button class="btn">Eşiği uygula</button></div>
+</form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Giriş · TemizAday{% endblock %}
+{% block body %}
+<div class="login">
+  <form method="post" action="/login"><input type="hidden" name="csrf" value="{{ csrf }}">
+    <a class="brand" href="/" style="color:var(--ink)"><img src="/static/logo.svg" alt=""><span>Temiz<b style="color:var(--moss)">Aday</b></span></a>
+    <h1>Giriş yap</h1>
+    <span class="small" style="margin-top:-8px">İK paneline erişmek için hesabınla devam et.</span>
+    {% if error %}<div class="err" role="alert">{{ error }}</div>{% endif %}
+    <div class="field"><label for="e">E-posta</label><input id="e" name="email" type="email" autocomplete="username" required></div>
+    <div class="field"><label for="p">Parola</label><input id="p" name="password" type="password" autocomplete="current-password" required></div>
+    <button class="btn" style="min-height:52px">Giriş yap</button>
+  </form>
+</div>
+{% endblock %}

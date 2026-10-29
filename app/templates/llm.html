@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}LLM Ayarları · TemizAday{% endblock %}
+{% block content %}
+<div><span class="tag">LLM AYARLARI</span><h1>Yapay zeka sağlayıcıları</h1></div>
+<div class="grid">
+  <div class="card" style="border:2px solid {{ 'var(--moss)' if has_key else 'var(--line)' }}">
+    <b style="font-size:17px">Anthropic (birincil model)</b>
+    <span class="small">derin analiz · yalnızca nitelikli adaylar</span>
+    <span class="chip {{ 'llm' if has_key }}" style="align-self:flex-start">{{ 'BAĞLI' if has_key else 'BAĞLI DEĞİL' }}</span>
+    <span class="small num">model: {{ cfg.model }}</span>
+    {% if not has_key %}<span class="small">Bağlamak için sunucuda <code>ANTHROPIC_API_KEY</code> ortam değişkenini ayarlayıp yeniden başlatın. Bağlı değilken süzgeç çalışır; LLM analizi yapılmaz.</span>{% endif %}
+  </div>
+  <div class="card">
+    <b style="font-size:17px">Çağrı durumu</b>
+    {% for k, label in [('done','tamamlandı'),('pending','bekliyor'),('failed','hata'),('disabled','LLM bağlı değilken geçen')] %}
+      <div class="row" style="justify-content:space-between"><span>{{ label }}</span><span class="num">{{ states[k].n | tr if k in states else 0 }}</span></div>
+    {% endfor %}
+    {% set ti = states['done'].ti if 'done' in states else 0 %}{% set to = states['done'].to_ if 'done' in states else 0 %}
+    <span class="small num">gerçek token: {{ (ti or 0) | tr }} giriş · {{ (to or 0) | tr }} çıkış</span>
+  </div>
+</div>
+<div class="card"><b>Gizlilik</b><span class="small">LLM'e yalnızca eşiği geçen adayın metni gider. E-posta, telefon, kimlik numarası ve bağlantılar gönderilmeden önce maskelenir. Ad maskelenmez. CV metni güvenilmeyen veri olarak işaretlenir; içindeki talimatlar modele uygulatılmaz ve çıktı JSON şemasıyla doğrulanır.</span></div>
+{% endblock %}

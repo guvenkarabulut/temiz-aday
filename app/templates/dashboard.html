@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Yeşil Panel · TemizAday{% endblock %}
+{% block content %}
+<div class="row" style="justify-content:space-between;align-items:flex-end">
+  <div><span class="tag">YEŞİL PANEL</span><h1>{{ 'Tüm pozisyonlar' if not sel else (positions | selectattr('id','equalto',sel) | map(attribute='title') | first) }}</h1>
+    <span class="small">{{ total | tr }} CV · GSF SCI yaklaşımıyla hesap</span></div>
+  <form method="get" class="row" style="gap:8px">
+    <label for="pos" class="small">Pozisyon</label>
+    <select id="pos" name="position" onchange="this.form.submit()" style="width:auto">
+      <option value="">Tümü</option>
+      {% for p in positions %}<option value="{{ p.id }}" {{ 'selected' if p.id == sel }}>{{ p.title }}</option>{% endfor %}
+    </select>
+    <noscript><button class="btn sm">Göster</button></noscript>
+  </form>
+</div>
+
+{% if total == 0 %}
+<div class="card"><b>Henüz CV yok.</b><span>Bir pozisyon açıp PDF CV'leri yükleyin; kurtarılan enerji burada görünür.</span>
+<div><a class="btn" href="/positions">Pozisyonlara git</a></div></div>
+{% else %}
+<div class="grid">
+  <div class="card dark"><span>Kurtarılan enerji (net)</span><span class="metric">{{ imp.net_wh | tr(1) }} <small style="font-size:18px">Wh</small></span><span class="small">{{ imp.rejected | tr }} LLM çağrısı engellendi · brüt {{ imp.wh_saved | tr(1) }} Wh</span></div>
+  <div class="card dark"><span>Önlenen CO₂</span><span class="metric">{{ imp.co2_g | tr(1) }} <small style="font-size:18px">g</small></span><span class="small">şebeke: {{ cfg.grid_g_per_kwh | tr }} g CO₂ / kWh</span></div>
+  <div class="card dark"><span>Engellenen token</span><span class="metric">{{ imp.tokens_avoided | tr }}</span><span class="small">CV metni + {{ cfg.prompt_tokens + cfg.out_tokens }} sabit token / çağrı (tahmin)</span></div>
+  <div class="card light"><span>Filtrenin kendi maliyeti</span><span class="metric">{{ (imp.filter_wh * 1000) | tr(3) }} <small style="font-size:18px">mWh</small></span><span class="small">{% if imp.ratio %}kazanç ≈ {{ imp.ratio | tr }}× maliyet{% else %}ölçüm yok{% endif %} · {{ cfg.cpu_watts | tr }} W CPU varsayımı</span></div>
+</div>
+
+<div class="row" style="align-items:stretch">
+  <div class="card" style="flex:1 1 360px">
+    <h2>Başvuru hunisi</h2>
+    {% set t = total %}
+    <div class="row" style="justify-content:space-between"><span>Yüklenen CV</span><span class="num">{{ t | tr }}</span></div>
+    <div class="funnel" style="background:var(--ink)"></div>
+    <div class="row" style="justify-content:space-between"><span>CPU'da elenen</span><span class="num">{{ counts.rejected | tr }}</span></div>
+    <div class="funnel" style="background:#F3D9A8"><i style="position:absolute;inset:0 auto 0 0;background:var(--ember);width:{{ (counts.rejected / t * 100) | round(1) }}%"></i></div>
+    <div class="row" style="justify-content:space-between"><span>LLM'e giden nitelikli aday</span><span class="num">{{ counts.llm | tr }}</span></div>
+    <div class="funnel" style="background:var(--ok)"><i style="position:absolute;inset:0 auto 0 0;background:#8FC93E;width:{{ (counts.llm / t * 100) | round(1) }}%"></i></div>
+    <div class="row" style="justify-content:space-between"><span>İnceleme bekleyen</span><span class="num">{{ counts.review | tr }}</span></div>
+    {% if counts.unreadable %}<div class="row" style="justify-content:space-between"><span>Okunamayan</span><span class="num">{{ counts.unreadable | tr }}</span></div>{% endif %}
+  </div>
+  <div class="card scroll" style="flex:1 1 360px">
+    <h2>Son kararlar</h2>
+    <table>
+      <thead><tr><th>Dosya</th><th>Benzerlik</th><th>Karar</th></tr></thead>
+      <tbody>
+      {% for a in recent %}
+        <tr><td>{{ a.filename }}<br><span class="small">{{ a.title }}</span></td><td class="num">{{ '%.2f' | format(a.score) | replace('.', ',') if a.score is not none else '–' }}</td>
+        <td><span class="chip {{ a.decision }}">{{ LABELS[a.decision] }}</span></td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

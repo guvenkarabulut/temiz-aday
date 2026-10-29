@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}GSF Raporu · TemizAday{% endblock %}
+{% block content %}
+<div class="row" style="justify-content:space-between;align-items:flex-end">
+  <div><span class="tag">GSF RAPORU</span><h1>Etki raporu</h1></div>
+  <form method="get" class="row" style="gap:8px"><label for="pos" class="small">Pozisyon</label>
+    <select id="pos" name="position" onchange="this.form.submit()" style="width:auto"><option value="">Tümü</option>
+    {% for p in positions %}<option value="{{ p.id }}" {{ 'selected' if p.id == sel }}>{{ p.title }}</option>{% endfor %}</select>
+    <button class="btn ghost sm" type="button" onclick="window.print()">PDF olarak yazdır</button></form>
+</div>
+
+<div class="card scroll">
+  <h2>Sonuçlar</h2>
+  <table>
+    <tbody>
+      <tr><td>Süzülen CV</td><td class="num">{{ imp.total | tr }}</td></tr>
+      <tr><td>Elenen (LLM çağrısı yapılmadı)</td><td class="num">{{ imp.rejected | tr }}</td></tr>
+      <tr><td>Engellenen token (tahmin)</td><td class="num">{{ imp.tokens_avoided | tr }}</td></tr>
+      <tr><td>Kurtarılan enerji, brüt</td><td class="num">{{ imp.wh_saved | tr(2) }} Wh</td></tr>
+      <tr><td>Filtrenin kendi enerjisi</td><td class="num">{{ (imp.filter_wh * 1000) | tr(3) }} mWh</td></tr>
+      <tr><td><b>Net enerji kazancı</b></td><td class="num"><b>{{ imp.net_wh | tr(2) }} Wh</b></td></tr>
+      <tr><td><b>Önlenen CO₂ (net)</b></td><td class="num"><b>{{ imp.co2_g | tr(2) }} g</b></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2>Varsayımlar ve yöntem</h2>
+  <table>
+    <tbody>
+      <tr><td>LLM çağrısı başına enerji</td><td class="num">{{ cfg.wh_per_call | tr(2) }} Wh</td></tr>
+      <tr><td>Şebeke karbon yoğunluğu</td><td class="num">{{ cfg.grid_g_per_kwh | tr }} g CO₂ / kWh</td></tr>
+      <tr><td>CPU gücü (filtre)</td><td class="num">{{ cfg.cpu_watts | tr }} W</td></tr>
+      <tr><td>Sabit token / çağrı (şablon + çıktı)</td><td class="num">{{ (cfg.prompt_tokens + cfg.out_tokens) | tr }}</td></tr>
+    </tbody>
+  </table>
+  <span class="small">Formüller: E_filtre = cpu_ms × W / 3,6·10⁶ [Wh] · E_net = elenen × Wh/çağrı − Σ E_filtre · CO₂ = E_net / 1000 × g/kWh. Token sayısı karakter sayısından (≈4 karakter/token) tahmin edilir. SCI'nin üretim karbonu (M) bileşeni kapsam dışıdır. Bu bir yaklaşımdır, resmi sertifikasyon değildir; katsayılar ölçümle değiştirilmelidir.</span>
+</div>
+{% endblock %}

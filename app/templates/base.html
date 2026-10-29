@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}TemizAday{% endblock %}</title>
+<link rel="icon" href="/static/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+{% block body %}
+<div class="shell">
+  <aside class="side">
+    <a class="brand" href="/"><img src="/static/logo.svg" alt=""><span>Temiz<b>Aday</b></span></a>
+    <nav aria-label="Ana menü">
+      <a href="/" class="{{ 'on' if path == '/' }}">Yeşil Panel</a>
+      <a href="/positions" class="{{ 'on' if path.startswith('/positions') }}">Pozisyonlar</a>
+      <a href="/filter" class="{{ 'on' if path == '/filter' }}">Filtre Ayarları</a>
+      <a href="/llm" class="{{ 'on' if path == '/llm' }}">LLM Ayarları</a>
+      <a href="/report" class="{{ 'on' if path == '/report' }}">GSF Raporları</a>
+    </nav>
+    <form method="post" action="/logout"><input type="hidden" name="csrf" value="{{ csrf }}"><button class="btn ghost sm" style="color:#EEF3EC;border-color:#4A6B5E">Çıkış yap</button></form>
+  </aside>
+  <main class="main">
+    {% if msg %}<div class="msg" role="status">{{ msg }}</div>{% endif %}
+    {% block content %}{% endblock %}
+  </main>
+</div>
+{% endblock %}
+</body>
+</html>

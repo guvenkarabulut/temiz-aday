@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+jinja2
+python-multipart
+scikit-learn
+pypdf
+itsdangerous
+anthropic
+httpx
+pytest
+cryptography

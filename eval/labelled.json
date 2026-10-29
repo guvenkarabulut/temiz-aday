@@ -1,0 +1,56 @@
+{
+ "note": "SENTETİK küme: gerçek aday verisi değil. Eşik için yalnızca bir başlangıç; gerçek etiketli CV'lerle yeniden ölçün.",
+ "positions": [
+  {"title": "Kıdemli Backend Mühendisi",
+   "jd": "Go ve PostgreSQL ile yüksek hacimli servisler geliştirecek, mimari kararlara öncülük edecek 6+ yıl deneyimli backend mühendisi. Kubernetes bilgisi aranır.",
+   "keywords": "go, postgresql",
+   "cvs": [
+    [1, "Kıdemli backend mühendisi, 8 yıl. Go ve PostgreSQL ile yüksek hacimli ödeme servisleri geliştirdim. Kubernetes üzerinde çalıştırdım."],
+    [1, "Yazılım mühendisi. Golang ile mikroservisler yazdım, PostgreSQL sorgu optimizasyonu yaptım, mimari kararlarda söz sahibiydim."],
+    [1, "Backend developer 7 yil. Go, PostgreSQL, Redis ve Kubernetes. Yuksek trafikli servisler tasarladim."],
+    [1, "Sistem mühendisi olarak Go ile servis geliştirme, PostgreSQL yönetimi ve Kubernetes kümeleri işletme konularında çalıştım."],
+    [1, "Teknik lider. Go tabanlı backend ekibini yönettim; PostgreSQL ve Kubernetes altyapısı kurdum, mimari tasarımlar yaptım."],
+    [1, "Go ile REST servisleri, PostgreSQL ile veri modelleme, Kubernetes dağıtımları. 6 yıllık backend deneyimi."],
+    [0, "Frontend geliştirici. React, TypeScript ve CSS ile arayüzler geliştirdim. Biraz Go bilgim var."],
+    [0, "Aşçı olarak restoranda on yıl çalıştım. Pasta, ekmek ve tatlı yapımında deneyimliyim."],
+    [0, "Satış temsilcisi. Müşteri ilişkileri yönettim, satış hedeflerini aştım, sunumlar hazırladım."],
+    [0, "Muhasebe uzmanı. Fatura, bütçe, vergi beyannamesi ve mali tabloların hazırlanması."],
+    [0, "İlkokul öğretmeni. Matematik ve fen dersleri, sınıf yönetimi, veli görüşmeleri."],
+    [0, "Ürün tasarımcısı. Figma ile arayüz tasarımı, kullanıcı araştırması ve prototipleme."],
+    [0, "Grafik tasarımcı. Logo, afiş ve sosyal medya görselleri hazırladım, Photoshop ve Illustrator kullandım."],
+    [0, "Hemşire. Hasta bakımı, ilaç uygulamaları, vardiya yönetimi ve acil servis deneyimi."]
+   ]},
+  {"title": "Ürün Tasarımcısı",
+   "jd": "Figma ile arayüz tasarlayan, kullanıcı araştırması yapan, prototipler hazırlayan ürün tasarımcısı. Tasarım sistemi deneyimi arttırır.",
+   "keywords": "figma",
+   "cvs": [
+    [1, "Ürün tasarımcısı, 5 yıl. Figma ile arayüz tasarımı, kullanıcı araştırması, prototipleme ve tasarım sistemi kurulumu."],
+    [1, "UX/UI tasarımcı. Figma'da tasarım sistemleri oluşturdum, kullanıcı testleri yürüttüm, prototipler hazırladım."],
+    [1, "Arayüz tasarımcısı olarak mobil uygulamalar için Figma prototipleri ve kullanıcı araştırmaları yaptım."],
+    [1, "Product designer. Figma, kullanici arastirmasi, prototip ve tasarim sistemi. 4 yillik deneyim."],
+    [1, "Dijital ürün tasarımı: Figma ile wireframe, arayüz, etkileşim prototipi; kullanıcı görüşmeleri."],
+    [0, "Backend mühendisi. Go ve PostgreSQL ile servis geliştirdim, Kubernetes kullandım."],
+    [0, "Muhasebe uzmanı. Fatura, bütçe, vergi beyannamesi hazırlama."],
+    [0, "Aşçı. Restoran mutfağında pasta ve ekmek yapımı."],
+    [0, "Satış temsilcisi. Müşteri ilişkileri ve hedef yönetimi."],
+    [0, "Öğretmen. Matematik dersleri, sınıf yönetimi."],
+    [0, "Hemşire. Hasta bakımı, ilaç uygulamaları, acil servis."],
+    [0, "Veri analisti. SQL ve Python ile raporlama, panolar ve istatistik."]
+   ]},
+  {"title": "Muhasebe Uzmanı",
+   "jd": "Fatura, bütçe ve vergi beyannamelerini hazırlayacak, aylık mali tabloları hazırlayacak muhasebe uzmanı.",
+   "keywords": "",
+   "cvs": [
+    [1, "Muhasebe uzmanı 6 yıl. Fatura işlemleri, bütçe planlama, vergi beyannamesi ve aylık mali tablo hazırlama."],
+    [1, "Mali müşavir yardımcısı olarak vergi beyannamelerini ve mali tabloları hazırladım, faturaları kayıt altına aldım."],
+    [1, "Finans ve muhasebe: bütçe takibi, fatura kontrolü, KDV ve gelir vergisi beyannameleri."],
+    [1, "Muhasebe departmanında fatura girişi, bütçe raporları ve mali tablo hazırlıklarında görev aldım."],
+    [0, "Backend mühendisi. Go ve PostgreSQL ile servis geliştirdim."],
+    [0, "Ürün tasarımcısı. Figma ile arayüz ve prototip tasarımı."],
+    [0, "Aşçı. Pasta, ekmek, restoran mutfağı."],
+    [0, "Öğretmen. Matematik, fen, sınıf yönetimi."],
+    [0, "Hemşire. Hasta bakımı ve ilaç uygulamaları."],
+    [0, "Grafik tasarımcı. Logo ve afiş tasarımı."]
+   ]}
+ ]
+}

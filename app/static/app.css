@@ -1,0 +1,48 @@
+:root{--ink:#0F2620;--moss:#1D6B4F;--sprout:#B6E36B;--ember:#E8A23B;--mist:#EEF3EC;--muted:#3C534B;--line:#C5D2C6;--ok:#DDF3B5;--warn:#FBE5BF;--neutral:#E1E9E0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--mist);color:var(--ink);font:400 16px/1.5 'Schibsted Grotesk',system-ui,sans-serif}
+a{color:var(--moss)}a:hover{color:var(--ink)}
+.mono,.num{font-family:'JetBrains Mono',ui-monospace,monospace}
+.shell{display:flex;flex-wrap:wrap;min-height:100vh}
+.side{flex:1 1 240px;max-width:100%;background:var(--ink);color:var(--mist);padding:28px 20px;display:flex;flex-direction:column;gap:28px}
+.brand{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:800;letter-spacing:-.03em;color:var(--mist);text-decoration:none}
+.brand img{width:36px;height:36px}.brand b{font-weight:500;color:var(--sprout)}
+.side nav{display:flex;flex-direction:column;gap:6px;font-weight:500;font-size:15px}
+.side nav a{display:flex;align-items:center;min-height:44px;padding:0 14px;border-radius:12px;color:#C5D6CC;text-decoration:none}
+.side nav a.on{background:var(--moss);color:#fff}
+.side form{margin-top:auto}
+.main{flex:999 1 640px;min-width:0;padding:32px 40px;display:flex;flex-direction:column;gap:24px}
+h1{margin:0;font-size:36px;letter-spacing:-.03em;line-height:1.1}h2{margin:0;font-size:20px}
+.tag{font:700 13px 'JetBrains Mono',monospace;color:var(--moss)}
+.card{background:#fff;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:12px}
+.dark{background:var(--ink);color:var(--mist)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.metric{font:500 38px/1 'JetBrains Mono',monospace;letter-spacing:-.03em}
+.dark .metric{color:var(--sprout)}.light .metric{color:var(--moss)}
+.small{font-size:13px;color:var(--muted)}.dark .small{color:#9DB5AA}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border:2px solid var(--moss);border-radius:12px;background:var(--moss);color:#fff;font:700 15px 'Schibsted Grotesk',sans-serif;cursor:pointer;text-decoration:none}
+.btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}.btn.ghost:hover{background:var(--ink);color:#fff}
+.btn.sm{min-height:36px;padding:0 14px;font-size:13px}
+input,textarea,select{font:400 16px 'Schibsted Grotesk',sans-serif;border:2px solid var(--line);border-radius:12px;padding:10px 14px;background:#fff;color:var(--ink);width:100%}
+input[type=file]{padding:10px}
+input:focus-visible,textarea:focus-visible,select:focus-visible,.btn:focus-visible,a:focus-visible{outline:3px solid var(--sprout);outline-offset:2px}
+label{font-size:14px;font-weight:700}
+.field{display:flex;flex-direction:column;gap:6px}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.chip{display:inline-block;padding:5px 10px;border-radius:999px;font:700 12px 'JetBrains Mono',monospace;background:var(--neutral);white-space:nowrap}
+.chip.llm{background:var(--ok);color:#25410A}.chip.rejected{background:var(--warn);color:#5E3A06}.chip.unreadable{background:#F5D0C5;color:#6B1E0A}
+.tabs a{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:12px;border:2px solid var(--ink);color:var(--ink);font-weight:700;font-size:14px;text-decoration:none}
+.tabs a.on{background:var(--ink);color:#fff}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{text-align:left;color:var(--muted);font:500 12px 'JetBrains Mono',monospace;padding:12px 8px 12px 0}
+td{border-top:1px solid var(--neutral);padding:12px 8px 12px 0;vertical-align:top}
+.scroll{overflow-x:auto}
+.bar{height:10px;width:90px;border-radius:5px;background:var(--neutral);overflow:hidden}.bar i{display:block;height:100%;background:var(--moss)}
+.msg{background:var(--ok);color:#25410A;border-radius:12px;padding:12px 16px;font-weight:500}
+.err{background:var(--warn);color:#5E3A06;border-radius:12px;padding:12px 16px;font-weight:500}
+.funnel{height:28px;border-radius:8px;position:relative;overflow:hidden}
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.login form{width:100%;max-width:400px;display:flex;flex-direction:column;gap:20px}
+details summary{cursor:pointer;font-weight:700}
+@media (max-width:700px){.main{padding:24px 20px}h1{font-size:30px}}
